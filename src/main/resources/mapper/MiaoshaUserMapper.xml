@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaowei.market.mapper.MiaoshaUserMapper">
+	<!--查询字段-->
+	<sql id="columns">
+	    a.id,
+	    a.nickname,
+	    a.password,
+	    a.salt,
+	    a.head,
+	    a.register_date,
+	    a.last_login_date,
+	    a.login_count
+	</sql>
+	
+	<!--查询结果集-->
+	<resultMap id="beanMap" type="com.xiaowei.market.bean.db.MiaoshaUser">
+	    <result property="id" column="id"/>
+	    <result property="nickname" column="nickname"/>
+	    <result property="password" column="password"/>
+	    <result property="salt" column="salt"/>
+	    <result property="head" column="head"/>
+	    <result property="registerDate" column="register_date"/>
+	    <result property="lastLoginDate" column="last_login_date"/>
+	    <result property="loginCount" column="login_count"/>
+	</resultMap>
+
+    <!--根据主键获取实体-->
+    <select id="get" resultMap="beanMap">
+        SELECT
+        <include refid="columns"/>
+        FROM
+	miaosha_user a
+        WHERE
+	     id = #{id}
+    </select>
+
+    <!-- 新增记录 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.xiaowei.market.bean.db.MiaoshaUser">
+        INSERT INTO miaosha_user
+        (
+	    `nickname`,
+	    `password`,
+	    `salt`,
+	    `head`,
+	    `register_date`,
+	    `last_login_date`,
+	    `login_count`
+        )
+        VALUES
+        (
+			#{nickname},
+			#{password},
+			#{salt},
+			#{head},
+			#{registerDate},
+			#{lastLoginDate},
+			#{loginCount}
+        )
+    </insert>
+
+
+    <!--更新实体信息-->
+    <update id="update" parameterType="com.xiaowei.market.bean.db.MiaoshaUser">
+        UPDATE
+	miaosha_user
+        SET
+        `nickname` = #{nickname},
+        `password` = #{password},
+        `salt` = #{salt},
+        `head` = #{head},
+        `register_date` = #{registerDate},
+        `last_login_date` = #{lastLoginDate},
+        `login_count` = #{loginCount}
+        WHERE  id = #{id}
+    </update>
+
+    <!--更新实体信息，null值字段不更新-->
+    <update id="updateIgnoreNull" parameterType="com.xiaowei.market.bean.db.MiaoshaUser">
+        UPDATE miaosha_user
+        <set>
+              <if test="nickname != null">
+                  `nickname` = #{nickname},
+              </if>
+              <if test="password != null">
+                  `password` = #{password},
+              </if>
+              <if test="salt != null">
+                  `salt` = #{salt},
+              </if>
+              <if test="head != null">
+                  `head` = #{head},
+              </if>
+              <if test="registerDate != null">
+                  `register_date` = #{registerDate},
+              </if>
+              <if test="lastLoginDate != null">
+                  `last_login_date` = #{lastLoginDate},
+              </if>
+              <if test="loginCount != null">
+                  `login_count` = #{loginCount},
+              </if>
+        </set>
+        WHERE   id = #{id}
+    </update>
+
+    <!--根据主键删除实体-->
+    <delete id="delete">
+        DELETE FROM miaosha_user WHERE  id = #{id}
+    </delete>
+
+    <!--根据昵称查询-->
+    <select id="getByNickname" resultMap="beanMap">
+        select
+        <include refid="columns"/>
+        from miaosha_user
+        where nickname =
+        #{nickname}
+    </select>
+
+    <!--根据id查询-->
+    <select id="getById" resultMap="beanMap">
+        select
+        <include refid="columns"/>
+        from miaosha_user
+        where id = #{id}
+    </select>
+
+    <!--插入秒杀用户-->
+    <insert id="insertMiaoShaUser">
+        insert into miaosha_user
+        (id
+        ,nickname
+        ,password
+        ,salt
+        ,head
+        ,register_date
+        ,last_login_date
+        )
+        value
+        (#{id}
+        ,#{nickname}
+        ,#{password}
+        ,#{salt}
+        ,#{head}
+        ,#{registerDate}
+        ,#{lastLoginDate}
+        )
+    </insert>
+</mapper>

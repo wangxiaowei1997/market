@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaowei.market.mapper.OrderInfoMapper">
+	<!--查询字段-->
+	<sql id="columns">
+	    a.id,
+	    a.user_id,
+	    a.goods_id,
+	    a.delivery_addr_id,
+	    a.goods_name,
+	    a.goods_count,
+	    a.goods_price,
+	    a.order_channel,
+	    a.status,
+	    a.create_date,
+	    a.pay_date
+	</sql>
+	
+	<!--查询结果集-->
+	<resultMap id="beanMap" type="com.xiaowei.market.bean.db.OrderInfo">
+	    <result property="id" column="id"/>
+	    <result property="userId" column="user_id"/>
+	    <result property="goodsId" column="goods_id"/>
+	    <result property="deliveryAddrId" column="delivery_addr_id"/>
+	    <result property="goodsName" column="goods_name"/>
+	    <result property="goodsCount" column="goods_count"/>
+	    <result property="goodsPrice" column="goods_price"/>
+	    <result property="orderChannel" column="order_channel"/>
+	    <result property="status" column="status"/>
+	    <result property="createDate" column="create_date"/>
+	    <result property="payDate" column="pay_date"/>
+	</resultMap>
+
+    <!--根据主键获取实体-->
+    <select id="get" resultMap="beanMap">
+        SELECT
+        <include refid="columns"/>
+        FROM
+	order_info a
+        WHERE
+	     id = #{id}
+    </select>
+
+    <!-- 新增记录 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.xiaowei.market.bean.db.OrderInfo">
+        INSERT INTO order_info
+        (
+	    `user_id`,
+	    `goods_id`,
+	    `delivery_addr_id`,
+	    `goods_name`,
+	    `goods_count`,
+	    `goods_price`,
+	    `order_channel`,
+	    `status`,
+	    `create_date`,
+	    `pay_date`
+        )
+        VALUES
+        (
+			#{userId},
+			#{goodsId},
+			#{deliveryAddrId},
+			#{goodsName},
+			#{goodsCount},
+			#{goodsPrice},
+			#{orderChannel},
+			#{status},
+			#{createDate},
+			#{payDate}
+        )
+    </insert>
+
+
+    <!--更新实体信息-->
+    <update id="update" parameterType="com.xiaowei.market.bean.db.OrderInfo">
+        UPDATE
+	order_info
+        SET
+        `user_id` = #{userId},
+        `goods_id` = #{goodsId},
+        `delivery_addr_id` = #{deliveryAddrId},
+        `goods_name` = #{goodsName},
+        `goods_count` = #{goodsCount},
+        `goods_price` = #{goodsPrice},
+        `order_channel` = #{orderChannel},
+        `status` = #{status},
+        `create_date` = #{createDate},
+        `pay_date` = #{payDate}
+        WHERE  id = #{id}
+    </update>
+
+    <!--更新实体信息，null值字段不更新-->
+    <update id="updateIgnoreNull" parameterType="com.xiaowei.market.bean.db.OrderInfo">
+        UPDATE order_info
+        <set>
+              <if test="userId != null">
+                  `user_id` = #{userId},
+              </if>
+              <if test="goodsId != null">
+                  `goods_id` = #{goodsId},
+              </if>
+              <if test="deliveryAddrId != null">
+                  `delivery_addr_id` = #{deliveryAddrId},
+              </if>
+              <if test="goodsName != null">
+                  `goods_name` = #{goodsName},
+              </if>
+              <if test="goodsCount != null">
+                  `goods_count` = #{goodsCount},
+              </if>
+              <if test="goodsPrice != null">
+                  `goods_price` = #{goodsPrice},
+              </if>
+              <if test="orderChannel != null">
+                  `order_channel` = #{orderChannel},
+              </if>
+              <if test="status != null">
+                  `status` = #{status},
+              </if>
+              <if test="createDate != null">
+                  `create_date` = #{createDate},
+              </if>
+              <if test="payDate != null">
+                  `pay_date` = #{payDate},
+              </if>
+        </set>
+        WHERE   id = #{id}
+    </update>
+
+    <!--根据主键删除实体-->
+    <delete id="delete">
+        DELETE FROM order_info WHERE  id = #{id}
+    </delete>
+
+
+    <!--通过用户id和商品id查询秒杀订单-->
+    <select id="getMiaoshaOrderByUserIdGoodsId">
+        select
+        <include refid="columns"/>
+
+        from miaosha_order
+        where user_id=#{userNickName}
+        and goods_id=#{goodsId}
+    </select>
+
+
+    <!--根据订单信息关闭订单-->
+    <update id="closeOrderByOrderInfo">
+        update order_info
+        set status = 0
+        where id=#{id}
+    </update>
+</mapper>

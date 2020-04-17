@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaowei.market.mapper.MiaoshaMessageMapper">
+	<!--查询字段-->
+	<sql id="columns">
+	    a.id,
+	    a.messageid,
+	    a.content,
+	    a.create_time,
+	    a.status,
+	    a.over_time,
+	    a.message_type,
+	    a.send_type,
+	    a.good_name,
+	    a.price
+	</sql>
+	
+	<!--查询结果集-->
+	<resultMap id="beanMap" type="com.xiaowei.market.bean.db.MiaoshaMessage">
+	    <result property="id" column="id"/>
+	    <result property="messageid" column="messageid"/>
+	    <result property="content" column="content"/>
+	    <result property="createTime" column="create_time"/>
+	    <result property="status" column="status"/>
+	    <result property="overTime" column="over_time"/>
+	    <result property="messageType" column="message_type"/>
+	    <result property="sendType" column="send_type"/>
+	    <result property="goodName" column="good_name"/>
+	    <result property="price" column="price"/>
+	</resultMap>
+
+    <!--查询结果集2-->
+    <resultMap id="beanMap2" type="com.xiaowei.market.domain.MiaoShaMessageInfo">
+        <result property="id" column="id"/>
+        <result property="messageid" column="messageid"/>
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="overTime" column="over_time"/>
+        <result property="messageType" column="message_type"/>
+        <result property="sendType" column="send_type"/>
+        <result property="goodName" column="good_name"/>
+        <result property="price" column="price"/>
+        <result property="messageHead" column="message_head"/>
+
+    </resultMap>
+
+    <!--根据主键获取实体-->
+    <select id="get" resultMap="beanMap">
+        SELECT
+        <include refid="columns"/>
+        FROM
+	miaosha_message a
+        WHERE
+	     id = #{id}
+    </select>
+
+    <!-- 新增记录 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.xiaowei.market.bean.db.MiaoshaMessage">
+        INSERT INTO miaosha_message
+        (
+	    `messageid`,
+	    `content`,
+	    `create_time`,
+	    `status`,
+	    `over_time`,
+	    `message_type`,
+	    `send_type`,
+	    `good_name`,
+	    `price`
+        )
+        VALUES
+        (
+			#{messageid},
+			#{content},
+			#{createTime},
+			#{status},
+			#{overTime},
+			#{messageType},
+			#{sendType},
+			#{goodName},
+			#{price}
+        )
+    </insert>
+
+
+    <!--更新实体信息-->
+    <update id="update" parameterType="com.xiaowei.market.bean.db.MiaoshaMessage">
+        UPDATE
+	miaosha_message
+        SET
+        `messageid` = #{messageid},
+        `content` = #{content},
+        `create_time` = #{createTime},
+        `status` = #{status},
+        `over_time` = #{overTime},
+        `message_type` = #{messageType},
+        `send_type` = #{sendType},
+        `good_name` = #{goodName},
+        `price` = #{price}
+        WHERE  id = #{id}
+    </update>
+
+    <!--更新实体信息，null值字段不更新-->
+    <update id="updateIgnoreNull" parameterType="com.xiaowei.market.bean.db.MiaoshaMessage">
+        UPDATE miaosha_message
+        <set>
+              <if test="messageid != null">
+                  `messageid` = #{messageid},
+              </if>
+              <if test="content != null">
+                  `content` = #{content},
+              </if>
+              <if test="createTime != null">
+                  `create_time` = #{createTime},
+              </if>
+              <if test="status != null">
+                  `status` = #{status},
+              </if>
+              <if test="overTime != null">
+                  `over_time` = #{overTime},
+              </if>
+              <if test="messageType != null">
+                  `message_type` = #{messageType},
+              </if>
+              <if test="sendType != null">
+                  `send_type` = #{sendType},
+              </if>
+              <if test="goodName != null">
+                  `good_name` = #{goodName},
+              </if>
+              <if test="price != null">
+                  `price` = #{price},
+              </if>
+        </set>
+        WHERE   id = #{id}
+    </update>
+
+    <!--根据主键删除实体-->
+    <delete id="delete">
+        DELETE FROM miaosha_message WHERE  id = #{id}
+    </delete>
+
+    <select id="listMiaoShaMessage">
+        select
+        <include refid="columns"/>
+        from miaosha_message a
+        where messageid = #{messageid}
+    </select>
+
+    <select id="listMiaoShaMessageUser">
+        select
+        <include refid="columns"/>
+        from miaosha_message_user a
+        where 1=1
+        <if test="messageId !=null ">
+            and messageId = #{messageId}
+        </if>
+    </select>
+
+    <insert id="insertMiaoShaMessage">
+        insert into
+        miaosha_message
+        (id
+        ,messageid
+        ,content
+        ,create_time
+        ,status
+        ,over_time
+        ,message_type
+        ,send_type
+        ,good_name
+        ,price,messageHead)
+	    value
+	    (#{id}
+	    ,#{messageId}
+	    ,#{content}
+	    ,#{createTime}
+	    ,#{status}
+	    ,#{overTime}
+	    ,#{messageType}
+	    ,#{sendType}
+	    ,#{goodName}
+	    ,#{price}
+	    ,#{messageHead}
+	    )
+    </insert>
+
+    <insert id="insertMiaoShaMessageUser">
+        insert into
+        miaosha_message_user
+        (id
+        ,userid
+        ,messageid
+        ,goodid
+        ,orderid)
+         value
+        (#{id}
+        ,#{userId}
+        ,#{messageId}
+        ,#{goodId}
+        ,#{orderId}
+        )
+    </insert>
+
+    <select id="listMiaoShaMessageByUserId" resultMap="beanMap2">
+        select *
+        from miaosha_message_user mmu ,
+        miaosha_message mm
+        where mmu.messageid = mm.messageid
+        and userid=${userId}
+        <if test="status !=null ">
+            and status = #{status}
+        </if>
+    </select>
+</mapper>
