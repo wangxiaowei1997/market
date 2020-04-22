@@ -1,8 +1,9 @@
 package com.xiaowei.market.service;
 
+import com.xiaowei.market.bean.db.MiaoshaOrder;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.bean.db.OrderInfo;
-import com.xiaowei.market.domain.MiaoshaOrder;
+import com.xiaowei.market.mapper.MiaoshaOrderMapper;
 import com.xiaowei.market.mapper.OrderInfoMapper;
 import com.xiaowei.market.redis.OrderKey;
 import com.xiaowei.market.redis.RedisService;
@@ -24,6 +25,8 @@ public class OrderService {
 	
 	@Resource
 	OrderInfoMapper orderInfoMapper;
+	@Resource
+	MiaoshaOrderMapper miaoshaOrderMapper;
 
 	@Autowired
 	private RedisService redisService ;
@@ -48,12 +51,12 @@ public class OrderService {
 		orderInfo.setOrderChannel(1);
 		orderInfo.setStatus(0);
 		orderInfo.setUserId(Long.valueOf(user.getNickname()));
-		orderInfoMapper.insert(orderInfo);
+		orderInfoMapper.add(orderInfo);
 		MiaoshaOrder miaoshaOrder = new MiaoshaOrder();
 		miaoshaOrder.setGoodsId(goods.getId());
 		miaoshaOrder.setOrderId(orderInfo.getId());
 		miaoshaOrder.setUserId(Long.valueOf(user.getNickname()));
-		orderInfoMapper.insertMiaoshaOrder(miaoshaOrder);
+		miaoshaOrderMapper.add(miaoshaOrder);
 		redisService.set(OrderKey.getMiaoshaOrderByUidGid,""+user.getNickname()+"_"+goods.getId(),miaoshaOrder) ;
 		return orderInfo;
 	}

@@ -113,7 +113,7 @@
     <select id="getByNickname" resultMap="beanMap">
         select
         <include refid="columns"/>
-        from miaosha_user
+        from miaosha_user a
         where nickname =
         #{nickname}
     </select>

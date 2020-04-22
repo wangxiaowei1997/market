@@ -1,18 +1,11 @@
 package com.xiaowei.market.mapper;
 
 import com.xiaowei.market.bean.db.OrderInfo;
-import com.xiaowei.market.domain.MiaoshaOrder;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
-
-    /**
-     * 通过用户id和商品id查询秒杀订单
-     */
-    MiaoshaOrder getMiaoshaOrderByUserIdGoodsId(@Param("userNickName") long userNickName,
-                                                @Param("goodsId") long goodsId);
 
 
     /**
@@ -20,10 +13,6 @@ public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
      */
     long insert(OrderInfo orderInfo);
 
-    /**
-     * 插入秒杀订单(简单信息)
-     */
-    int insertMiaoshaOrder(MiaoshaOrder miaoshaOrder);
 
     /**
      * 通过订单id查询订单

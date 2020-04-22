@@ -1,9 +1,9 @@
 package com.xiaowei.market.controller;
 
 import com.xiaowei.market.access.AccessLimit;
+import com.xiaowei.market.bean.db.MiaoshaOrder;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.common.resultbean.ResultGeekQ;
-import com.xiaowei.market.domain.MiaoshaOrder;
 import com.xiaowei.market.rabbitmq.MQSender;
 import com.xiaowei.market.rabbitmq.MiaoshaMessage;
 import com.xiaowei.market.redis.GoodsKey;

@@ -134,17 +134,6 @@
     </delete>
 
 
-    <!--通过用户id和商品id查询秒杀订单-->
-    <select id="getMiaoshaOrderByUserIdGoodsId">
-        select
-        <include refid="columns"/>
-
-        from miaosha_order
-        where user_id=#{userNickName}
-        and goods_id=#{goodsId}
-    </select>
-
-
     <!--根据订单信息关闭订单-->
     <update id="closeOrderByOrderInfo">
         update order_info

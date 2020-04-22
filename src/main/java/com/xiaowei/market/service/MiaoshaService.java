@@ -1,8 +1,8 @@
 package com.xiaowei.market.service;
 
+import com.xiaowei.market.bean.db.MiaoshaOrder;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.bean.db.OrderInfo;
-import com.xiaowei.market.domain.MiaoshaOrder;
 import com.xiaowei.market.redis.MiaoshaKey;
 import com.xiaowei.market.redis.RedisService;
 import com.xiaowei.market.utils.MD5Utils;

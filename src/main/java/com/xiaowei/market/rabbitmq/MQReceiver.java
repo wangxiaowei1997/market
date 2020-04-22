@@ -1,7 +1,7 @@
 package com.xiaowei.market.rabbitmq;
 
+import com.xiaowei.market.bean.db.MiaoshaOrder;
 import com.xiaowei.market.bean.db.MiaoshaUser;
-import com.xiaowei.market.domain.MiaoshaOrder;
 import com.xiaowei.market.redis.RedisService;
 import com.xiaowei.market.service.GoodsService;
 import com.xiaowei.market.service.MiaoShaMessageService;
