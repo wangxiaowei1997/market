@@ -24,7 +24,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">订单中心</div>
     <div  class="panel-heading">
-        <button onclick="messageRegister()">消息中心</button>
+        <button onclick="toGoodsList()">商品列表</button>
+        <button onclick="messageCenter()">消息中心</button>
         <input id="userid" th:value="${user.id}"></input>
     </div>　　
     <table class="table" id="orderList">
@@ -43,9 +44,13 @@
 </body>
 
 <script>
-    function messageRegister() {
+    function messageCenter() {
         var userid = $("#userid").val();
         window.location.href='/message/list?userid='+userid;
+    }
+
+    function toGoodsList() {
+        window.location.href="/goods/to_list";
     }
 
 </script>
