@@ -4,26 +4,26 @@
     <title>商品详情</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- jquery -->
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/thymeleaf/js/jquery.min.js"></script>
     <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/thymeleaf/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/thymeleaf/bootstrap/js/bootstrap.min.js"></script>
     <!-- jquery-validator -->
-    <script type="text/javascript" src="/jquery-validation/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/jquery-validation/localization/messages_zh.min.js"></script>
+    <script type="text/javascript" src="/thymeleaf/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/thymeleaf/jquery-validation/localization/messages_zh.min.js"></script>
     <!-- layer -->
-    <script type="text/javascript" src="/layer/layer.js"></script>
+    <script type="text/javascript" src="/thymeleaf/layer/layer.js"></script>
     <!-- md5.js -->
-    <script type="text/javascript" src="/js/md5.min.js"></script>
+    <script type="text/javascript" src="/thymeleaf/js/md5.min.js"></script>
     <!-- common.js -->
-    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/thymeleaf/js/common.js"></script>
     <style type="text/css">
         html,body{
             height:100%;
             width:100%;
         }
         body{
-            background:url('/static/thymeleaf/img/bg2.jpg') no-repeat;
+            background:url('/thymeleaf/img/bg2.jpg') no-repeat;
             background-size:100% 100%;
         }
         #goodslist td{
@@ -34,11 +34,16 @@
 <body>
 
 <div class="panel panel-default" style="height:100%;background-color:rgba(222,222,222,0.8)" >
-  <div class="panel-heading">秒杀商品详情</div>
-  <div class="panel-body">
-  	<span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
-  	<span>没有收货地址的提示。。。</span>
-  </div>
+    <div class="panel-heading">秒杀商品详情</div>
+    <div class="panel-heading">
+        <button onclick="toGoodsList()">商品列表</button>
+        <button onclick="messageRegister()">消息中心</button>
+        <span id="userid"></span>
+    </div>
+    <div class="panel-body">
+        <span id="userTip"> 您还没有登录，请登陆后再操作<br/></span>
+        <span>没有收货地址的提示。。。</span>
+    </div>
   <table class="table" id="goodslist">
   	<tr>  
         <td>商品名称</td>  
@@ -241,6 +246,26 @@ function countDown(){
 }
 function refreshVerifyCode(){
 	$("#verifyCodeImg").attr("src", "/miaosha/verifyCode?goodsId="+$("#goodsId").val()+"&timestamp="+new Date().getTime());
+}
+
+function toGoodsList() {
+    window.location.href="/goods/to_list";
+}
+function messageRegister() {
+    var userid = getQueryVariable("userId");
+    window.location.href='/message/list?userid='+userid;
+}
+
+
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] === variable){return pair[1];}
+    }
+    return(false);
 }
 </script>
 </html>

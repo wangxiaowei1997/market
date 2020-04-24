@@ -23,6 +23,9 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">消息列表</div>
+    <div  class="panel-heading">
+        <button onclick="toGoodsList()">商品列表</button>
+    </div>　　
     <input class="panel-heading" style="display:none" name="t1" id="t1" value="有新消息"></input>
     <table class="table" id="message">
   	<tr><td>消息名称</td><td>消息类型</td><td>消息内容</td><td>创建时间</td></tr>
@@ -73,5 +76,10 @@
         // setTimeout('messageKeeping()', 100000); //注意:执行的函数需要加引号,否则会报错的
 
     }
+
+    function toGoodsList() {
+        window.location.href="/goods/to_list";
+    }
+
 </script>
 </html>
