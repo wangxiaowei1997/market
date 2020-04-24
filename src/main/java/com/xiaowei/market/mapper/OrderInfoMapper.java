@@ -20,6 +20,11 @@ public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
     OrderInfo getOrderById(@Param("orderId") long orderId);
 
     /**
+     * 查询用户名下的订单列表
+     */
+    List<OrderInfo> getOrderList(@Param("userId") long userId);
+
+    /**
      *通过状态和创建时间查询订单
      */
     List<OrderInfo> selectOrderStatusByCreateTime(@Param("status") Integer status,

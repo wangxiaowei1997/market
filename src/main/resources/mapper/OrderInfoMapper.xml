@@ -140,4 +140,20 @@
         set status = 0
         where id=#{id}
     </update>
+
+    <!--根据订单id查询订单-->
+    <select id="getOrderById" resultMap="beanMap">
+        select
+        <include refid="columns"/>
+        from order_info a
+        where id = #{orderId}
+    </select>
+
+    <!--查询订单列表-->
+    <select id="getOrderList" resultMap="beanMap">
+        select
+        <include refid="columns"/>
+        from order_info a
+        where user_id = #{userId}
+    </select>
 </mapper>

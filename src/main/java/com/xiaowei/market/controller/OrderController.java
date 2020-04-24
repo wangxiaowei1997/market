@@ -1,5 +1,6 @@
 package com.xiaowei.market.controller;
 
+import com.google.common.collect.Lists;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.bean.db.OrderInfo;
 import com.xiaowei.market.common.resultbean.ResultGeekQ;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 import static com.xiaowei.market.common.enums.ResultStatus.ORDER_NOT_EXIST;
 import static com.xiaowei.market.common.enums.ResultStatus.SESSION_ERROR;
@@ -57,5 +60,28 @@ public class OrderController {
     	result.setData(vo);
     	return result;
     }
+
+	@RequestMapping("/getOrderList")
+	@ResponseBody
+    public ResultGeekQ<List<OrderDetailVo>> getOrderList(Model model, MiaoshaUser user){
+		ResultGeekQ<List<OrderDetailVo>> result = ResultGeekQ.build();
+		if (user == null) {
+			result.withError(SESSION_ERROR.getCode(), SESSION_ERROR.getMessage());
+			return result;
+		}
+		List<OrderInfo> orderList = orderService.getOrderList(user.getId());
+		List<OrderDetailVo> resultList = Lists.newArrayList();
+		for(OrderInfo o:orderList){
+			long goodsId = o.getGoodsId();
+			GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+			OrderDetailVo vo = new OrderDetailVo();
+			vo.setOrder(o);
+			vo.setGoods(goods);
+			resultList.add(vo);
+		}
+		result.setData(resultList);
+
+		return result;
+	}
     
 }

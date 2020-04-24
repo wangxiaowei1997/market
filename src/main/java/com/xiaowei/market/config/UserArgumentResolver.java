@@ -11,6 +11,11 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+/**
+ * 参数解析器,SpringMvc的参数解析器使用了策略模式,
+ * supportsParameter 声明对参数类型的支持
+ * resolveArgument
+ */
 @Service
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 

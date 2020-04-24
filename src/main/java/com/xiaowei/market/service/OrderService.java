@@ -35,8 +35,18 @@ public class OrderService {
 		return	redisService.get(OrderKey.getMiaoshaOrderByUidGid,""+userId+"_"+goodsId,MiaoshaOrder.class) ;
 	}
 
+	/**
+	 * 根据订单id查询订单
+	 */
 	public OrderInfo getOrderById(long orderId) {
 		return orderInfoMapper.getOrderById(orderId);
+	}
+
+	/**
+	 * 查询用户名下的订单
+	 */
+	public List<OrderInfo> getOrderList(long userId){
+		return orderInfoMapper.getOrderList(userId);
 	}
 
 	@Transactional
