@@ -22,9 +22,11 @@
 <body>
 
 <div class="panel panel-default">
-  <div class="panel-heading">消息列表</div>
+  <div class="panel-heading">消息中心</div>
     <div  class="panel-heading">
         <button onclick="toGoodsList()">商品列表</button>
+        <button onclick="orderCenter()">订单中心</button>
+
     </div>　　
     <input class="panel-heading" style="display:none" name="t1" id="t1" value="有新消息"></input>
     <table class="table" id="message">
@@ -79,6 +81,12 @@
 
     function toGoodsList() {
         window.location.href="/goods/to_list";
+    }
+
+
+    function orderCenter() {
+        var userid = $("#userid").val();
+        window.location.href='/order/to_list';
     }
 
 </script>
