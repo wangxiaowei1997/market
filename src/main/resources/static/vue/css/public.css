@@ -1,0 +1,69 @@
+ [v-cloak] {
+ 	display: none;
+ }
+
+ .filter label {
+ 	display: inline-block;
+ 	width: 100px;
+ 	text-align: right;
+ }
+
+ .filterBtns {
+ 	border-bottom: 1px solid #E8E8E8;
+ 	padding: 0 50px 5px 20px;
+ }
+
+ .batchBtns {
+ 	padding: 5px 10px 10px;
+ }
+
+ .updateBtn {
+ 	position: relative;
+ }
+
+ .updateBtn .upload-demo {
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	background: red;
+ 	opacity: 0;
+ 	width: 100%;
+ 	height: 100%;
+ }
+
+ .updateBtn .el-upload,
+ .updateBtn button {
+ 	height: inherit;
+ 	width: inherit;
+ }
+
+ .seach {
+ 	display: flex;
+ 	justify-content: flex-end;
+ }
+
+ .filterBtns .iconfont {
+ 	margin-right: 2px;
+ }
+
+ .el-form .el-input.is-disabled .el-input__inner,
+ .el-form .el-textarea.is-disabled .el-textarea__inner {
+ 	color: #606266;
+ }
+
+ .el-icon-view {
+ 	color: #409EFF;
+ 	cursor: pointer;
+ }
+ .main-title{
+	background:rgb(84, 92, 100);
+	color: #fff;
+	line-height: 40px;
+	padding-left:20px; 
+	margin-bottom: 15px;
+	font-weight: 700;
+}
+.link-button{
+	color:#409EFF;
+	cursor: pointer;
+}

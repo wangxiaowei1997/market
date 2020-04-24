@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="/vue/js/base/vue.js"></script>
+    <script src="/vue/js/base/axios.js"></script>
+    <script src="/vue/js/base/element-ui.js"></script>
+    <link rel="stylesheet" href="/vue/css/base.css">
+    <link rel="stylesheet" href="/vue/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="/vue/css/fonts/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/vue/css/element-ui.css">
+    <style>
+        .login-form{
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 600px;
+            padding: 0px 35px 15px 35px;
+            margin: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="App" style="margin: 0 10px;">
+
+    <h3 class="title" style="text-align:center;"><font style='font-size:35px;color:#050c0f;'>用户登录</font></h3>
+
+    <el-form :model="ruleForm"  label-width="120px" class="login-form" label-position="left" >
+            <el-form-item label="请输入手机号码" prop="pass" size="small" label-width="120px" >
+                <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="请输入密码" prop="checkPass" size="small" label-width="120px" >
+                <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-row>
+                    <el-col :span="10">
+                        <el-button type="primary" @click="submitForm('ruleForm')" size="small">注册</el-button>
+                    </el-col>
+                    <el-col :span="10">
+                        <el-button type="primary" @click="resetForm('ruleForm')" size="small">登录</el-button>
+                    </el-col>
+                </el-row>
+            </el-form-item>
+            <el-form-item >
+                <span>网站访问次数为{{count}}</span>
+            </el-form-item>
+    </el-form>
+</div>
+</body>
+
+<!--这里必须写后面，因为先加载body才能识别App-->
+<script src="/vue/js/page/login.js"></script>
+</html>
