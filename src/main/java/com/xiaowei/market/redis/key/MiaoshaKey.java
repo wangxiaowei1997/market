@@ -1,6 +1,6 @@
-package com.xiaowei.market.redis;
+package com.xiaowei.market.redis.key;
 
-public class MiaoshaKey extends BasePrefix{
+public class MiaoshaKey extends BasePrefix {
 
 	private MiaoshaKey( int expireSeconds, String prefix) {
 		super(expireSeconds, prefix);

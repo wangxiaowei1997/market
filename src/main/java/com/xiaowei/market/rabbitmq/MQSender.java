@@ -1,6 +1,6 @@
 package com.xiaowei.market.rabbitmq;
 
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.bean.vo.MiaoShaMessageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

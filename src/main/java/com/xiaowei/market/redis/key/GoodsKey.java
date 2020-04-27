@@ -1,6 +1,6 @@
-package com.xiaowei.market.redis;
+package com.xiaowei.market.redis.key;
 
-public class GoodsKey extends BasePrefix{
+public class GoodsKey extends BasePrefix {
 
 	private GoodsKey(int expireSeconds, String prefix) {
 		super(expireSeconds, prefix);

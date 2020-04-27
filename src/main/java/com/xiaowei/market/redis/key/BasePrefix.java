@@ -1,6 +1,8 @@
-package com.xiaowei.market.redis;
+package com.xiaowei.market.redis.key;
 
-public abstract class BasePrefix implements  KeyPrefix {
+import com.xiaowei.market.redis.key.KeyPrefix;
+
+public abstract class BasePrefix implements KeyPrefix {
 
     private int expireSeconds;
 

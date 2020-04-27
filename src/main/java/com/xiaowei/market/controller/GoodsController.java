@@ -2,8 +2,8 @@ package com.xiaowei.market.controller;
 
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.common.resultbean.ResultGeekQ;
-import com.xiaowei.market.redis.GoodsKey;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.key.GoodsKey;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.service.GoodsService;
 import com.xiaowei.market.service.MiaoShaUserService;
 import com.xiaowei.market.bean.vo.GoodsDetailVo;

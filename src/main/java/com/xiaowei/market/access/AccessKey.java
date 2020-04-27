@@ -1,6 +1,6 @@
 package com.xiaowei.market.access;
 
-import com.xiaowei.market.redis.BasePrefix;
+import com.xiaowei.market.redis.key.BasePrefix;
 
 public class AccessKey extends BasePrefix {
 

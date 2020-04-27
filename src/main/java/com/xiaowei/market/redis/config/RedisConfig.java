@@ -1,4 +1,4 @@
-package com.xiaowei.market.redis;
+package com.xiaowei.market.redis.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

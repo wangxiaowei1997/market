@@ -1,4 +1,4 @@
-package com.xiaowei.market.redis;
+package com.xiaowei.market.redis.key;
 
 public interface KeyPrefix {
 

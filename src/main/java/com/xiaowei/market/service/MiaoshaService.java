@@ -3,11 +3,12 @@ package com.xiaowei.market.service;
 import com.xiaowei.market.bean.db.MiaoshaOrder;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.bean.db.OrderInfo;
-import com.xiaowei.market.redis.MiaoshaKey;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.key.MiaoshaKey;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.utils.MD5Utils;
 import com.xiaowei.market.utils.UUIDUtil;
 import com.xiaowei.market.bean.vo.GoodsVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 @Service
+@Slf4j
 public class MiaoshaService {
 	
 	@Autowired
@@ -30,7 +32,8 @@ public class MiaoshaService {
 	RedisService redisService;
 
 	@Transactional
-	public OrderInfo miaosha(MiaoshaUser user, GoodsVo goods) {
+	public  OrderInfo  miaosha(MiaoshaUser user, GoodsVo goods) {
+		log.info("user={} goods={}",user,goods);
 		//减库存 下订单 写入秒杀订单
 		boolean success = goodsService.reduceStock(goods);
 		if(success){

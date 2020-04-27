@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.common.enums.ResultStatus;
 import com.xiaowei.market.common.resultbean.ResultGeekQ;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.service.MiaoShaUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

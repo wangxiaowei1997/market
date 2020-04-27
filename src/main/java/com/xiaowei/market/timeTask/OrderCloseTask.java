@@ -1,7 +1,7 @@
 package com.xiaowei.market.timeTask;
 
 import com.xiaowei.market.mapper.OrderInfoMapper;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -1,7 +1,7 @@
 package com.xiaowei.market.controller;
 
-import com.xiaowei.market.redis.KeyPrefix;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.key.KeyPrefix;
+import com.xiaowei.market.redis.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

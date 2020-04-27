@@ -4,15 +4,14 @@ import com.xiaowei.market.bean.db.MiaoshaUser;
 import com.xiaowei.market.exception.GlobleException;
 import com.xiaowei.market.mapper.MiaoshaUserMapper;
 import com.xiaowei.market.rabbitmq.MQSender;
-import com.xiaowei.market.redis.MiaoShaUserKey;
-import com.xiaowei.market.redis.RedisService;
+import com.xiaowei.market.redis.key.MiaoShaUserKey;
+import com.xiaowei.market.redis.service.RedisService;
 import com.xiaowei.market.utils.MD5Utils;
 import com.xiaowei.market.utils.UUIDUtil;
 import com.xiaowei.market.bean.vo.LoginVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
