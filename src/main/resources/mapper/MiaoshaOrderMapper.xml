@@ -77,4 +77,15 @@
         DELETE FROM miaosha_order WHERE  id = #{id}
     </delete>
 
+    <select id="getMiaoShaOrderByUserIdAndGoodsId" resultMap="beanMap">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        miaosha_order a
+        WHERE
+        user_id = #{userId}
+        and
+        goods_id = #{goodsId}
+    </select>
+
 </mapper>

@@ -5,6 +5,8 @@ import com.xiaowei.market.bean.vo.MiaoShaMessageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,4 +48,21 @@ public class MQSender {
 		rabbitTemplate.convertAndSend(MQConfig.MIAOSHATEST,msg);
 //        rabbitTemplate.convertAndSend(MQConfig.EXCHANGE_TOPIC,"miaosha_*", msg);
     }
+
+	/**
+	 * 自动关单
+	 * 在发送创建订单消息的时候一并发出到A队列，
+	 * A队列等待10分钟之后发送到死信队列。
+	 */
+	public void sendCloseOrderMessage(MiaoshaMessage mm) {
+		String msg = RedisService.beanToString(mm);
+		log.info("send message:"+msg);
+		//配置消息过期时间30s
+		MessagePostProcessor messagePostProcessor = message -> {
+			MessageProperties messageProperties = message.getMessageProperties();
+			messageProperties.setExpiration("30000");
+			return message;
+		};
+		amqpTemplate.convertAndSend(MQConfig.MS_DLX_MAKE_EXCHANGE,"james", msg,messagePostProcessor);
+	}
 }

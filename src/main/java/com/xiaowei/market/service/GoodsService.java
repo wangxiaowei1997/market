@@ -37,6 +37,14 @@ public class GoodsService {
 		int ret = goodsMapper.reduceStock(g);
 		return ret > 0;
 	}
+
+
+	public boolean addStock(GoodsVo goods) {
+		MiaoshaGoods g = new MiaoshaGoods();
+		g.setGoodsId(goods.getId());
+		int ret = goodsMapper.addStock(g);
+		return ret > 0;
+	}
 	
 	
 	

@@ -71,12 +71,21 @@ public class OrderService {
 		return orderInfo;
 	}
 
+	/**
+	 * 关闭超时订单
+	 */
+	@Transactional
+	public void closeOrder(MiaoshaUser user, GoodsVo goods) {
+		MiaoshaOrder miaoshaOrder = miaoshaOrderMapper.getMiaoShaOrderByUserIdAndGoodsId(Long.valueOf(user.getNickname()), goods.getId());
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setId(miaoshaOrder.getOrderId());
+		orderInfo.setStatus(6);
+		orderInfoMapper.updateIgnoreNull(orderInfo);
+	}
+
+
 	public void closeOrder(int hour){
-		Date closeDateTime = DateUtils.addHours(new Date(),-hour);
-		List<OrderInfo> orderInfoList = orderInfoMapper.selectOrderStatusByCreateTime(Integer.valueOf(ORDER_NOT_PAY.ordinal()), DateTimeUtils.dateToStr(closeDateTime));
-		for (OrderInfo orderInfo:orderInfoList){
-			System.out.println("orderinfo  infomation "+orderInfo.getGoodsName());
-		}
+
 	}
 
 	

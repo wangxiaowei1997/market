@@ -22,4 +22,9 @@ public interface GoodsMapper extends BaseMapper<Goods>{
      * 库存扣减
      */
     int reduceStock(MiaoshaGoods g);
+
+    /**
+     * 库存恢复
+     */
+    int addStock(MiaoshaGoods g);
 }

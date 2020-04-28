@@ -111,6 +111,8 @@ public class MiaoshaController implements InitializingBean {
         mm.setGoodsId(goodsId);
         mm.setUser(user);
         mqSender.sendMiaoshaMessage(mm);
+        //发送延迟关单请求
+        mqSender.sendCloseOrderMessage(mm);
         return result;
     }
 

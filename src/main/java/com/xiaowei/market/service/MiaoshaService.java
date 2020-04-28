@@ -40,7 +40,7 @@ public class MiaoshaService {
 			return orderService.createOrder(user,goods) ;
 		}else {
 			//如果库存不存在则内存标记为true
-			setGoodsOver(goods.getId());
+			setGoodsOver(goods.getId(),true);
 			return null;
 		}
 	}
@@ -60,8 +60,22 @@ public class MiaoshaService {
 		}
 	}
 
-	private void setGoodsOver(Long goodsId) {
-		redisService.set(MiaoshaKey.isGoodsOver, ""+goodsId, true);
+	/**
+	 * 关闭订单,返回库存
+	 */
+	@Transactional
+	public void closeOrder(MiaoshaUser user, GoodsVo goods) {
+		log.info("user={} goods={}", user, goods);
+		boolean success = goodsService.addStock(goods);
+		if (success) {
+			orderService.closeOrder(user, goods);
+			//恢复库存
+			setGoodsOver(goods.getId(),false);
+		}
+	}
+
+	private void setGoodsOver(Long goodsId,boolean ifOver) {
+		redisService.set(MiaoshaKey.isGoodsOver, ""+goodsId, ifOver);
 	}
 
 	private boolean getGoodsOver(long goodsId) {
