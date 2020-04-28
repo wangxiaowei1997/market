@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class MQReceiver {
@@ -40,24 +41,30 @@ public class MQReceiver {
 		MiaoShaMessageService messageService ;
 		
 		@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
-		public void receive(String message) {
+		public void receive(Message message,Channel channel) throws Exception {
 			log.info("receive message:"+message);
-			MiaoshaMessage mm  = RedisService.stringToBean(message, MiaoshaMessage.class);
+			String messageBody =  new String(message.getBody(), "UTF-8");
+			MiaoshaMessage mm  = RedisService.stringToBean(messageBody, MiaoshaMessage.class);
 			MiaoshaUser user = mm.getUser();
 			long goodsId = mm.getGoodsId();
 
 			GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
 	    	int stock = goods.getStockCount();
 	    	if(stock <= 0) {
-	    		return;
+	    		log.info("{} 库存空了",goodsId+"_"+user.getNickname());
+				channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+				return;
 	    	}
 	    	//判断是否已经秒杀到了
 	    	MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(Long.valueOf(user.getNickname()), goodsId);
 	    	if(order != null) {
-	    		return;
+	    		log.info("{}已经秒杀到了",goodsId+"_"+user.getNickname());
+				channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+				return;
 	    	}
 	    	//减库存 下订单 写入秒杀订单
 	    	miaoshaService.miaosha(user, goods);
+			channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
 		}
 
 

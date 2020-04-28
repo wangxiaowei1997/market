@@ -6,8 +6,8 @@ public class OrderKey extends BasePrefix {
         super( expireSeconds,prefix);
     }
 
-
-    public static OrderKey getMiaoshaOrderByUidGid = new OrderKey(5,"moug");
+    //这里的过期时间应该设置为永久,否则几秒后记录就没了
+    public static OrderKey getMiaoshaOrderByUidGid = new OrderKey(-1,"moug");
 
     public static OrderKey getOrderList = new OrderKey(5,"ol");
 
